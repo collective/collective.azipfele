@@ -4,7 +4,6 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
-from lcp.theme.testing import LCP_THEME_FIXTURE
 
 
 class AZipFileFixture(PloneSandboxLayer):
@@ -12,32 +11,29 @@ class AZipFileFixture(PloneSandboxLayer):
 
 
     def setUpZope(self, app, configurationContext):
-        z2.installProduct(app, 'Products.DateRecurringIndex')
-        z2.installProduct(app, 'Products.TextIndexNG3')
+        #z2.installProduct(app, 'Products.DateRecurringIndex')
+        #z2.installProduct(app, 'Products.TextIndexNG3')
 
         # Load ZCML
-        import plone.app.dexterity
-        self.loadZCML(package=plone.app.dexterity,
+        #import plone.app.dexterity
+        #self.loadZCML(package=plone.app.dexterity,
+        #              context=configurationContext)
+        import bda.azipfele
+        self.loadZCML(package=bda.azipfele,
                       context=configurationContext)
-        import zlag.mediadb
-        self.loadZCML(package=zlag.mediadb,
-                      context=configurationContext)
-
-    def setUpPloneSite(self, portal):
-        self.applyProfile(portal, 'zlag.mediadb:robottest')
 
 
 AZIPFILE_FIXTURE = AZipFileFixture()
-MEDIADB_LAYER = IntegrationTesting(
+AZIPFILE_LAYER = IntegrationTesting(
     bases=(AZIPFILE_FIXTURE,),
-    name="MEDIADB:Integration"
+    name="AZIPFILE:Integration"
 )
 
 
 AZIP_ROBOT_TESTING = FunctionalTesting(
-   bases=(AZIPFILE_FIXTURE, LCP_THEME_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE,
+   bases=(AZIPFILE_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE,
           z2.ZSERVER_FIXTURE),
-    name="MEDIADB:Robot")
+    name="AZIPFILE:Robot")
 
 
 # start robotserver with

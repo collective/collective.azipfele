@@ -30,11 +30,23 @@ setup(name='bda.azipfele',
       install_requires=[
           'setuptools',
           'Plone',
+          'collective.js.angular',
+          'plone.api',
           'bda.azipfele',
+          'plone.app.robotframework[debug]'
       ],
-      extras_require = dict(
-      ),
-      entry_points={
-          'z3c.autoinclude.plugin': 'target = plone',
+      extras_require={
+          'test': [
+              'interlude[ipython]>=1.3.1',
+              'ipdb',
+              'plone.app.testing',
+              'plone.app.robotframework',
+              'lcp.theme[test]',
+          ],
       },
+      entry_points="""
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
 )

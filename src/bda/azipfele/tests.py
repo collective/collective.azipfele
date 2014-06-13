@@ -1,5 +1,4 @@
-from .testing import MEDIADB_LAYER
-from .testing import MEDIADB_ROBOT_TESTING
+from .testing import AZIP_ROBOT_TESTING, AZIPFILE_LAYER
 from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
@@ -35,11 +34,11 @@ def test_suite():
                 },
                 optionflags=optionflags,
             )
-            tests.append(layered(test, layer=MEDIADB_LAYER))
+            tests.append(layered(test, layer=AZIPFILE_LAYER))
 
         if testfile.endswith('.robot'):
             test = robotsuite.RobotTestSuite(testfile)
-            tests.append(layered(test, layer=MEDIADB_ROBOT_TESTING))
+            tests.append(layered(test, layer=AZIP_ROBOT_TESTING))
 
     suite.addTests(tests)
     return suite
