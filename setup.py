@@ -3,9 +3,7 @@ import sys, os
 
 version = '1.0'
 shortdesc = 'bda azipfele'
-longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-longdesc += open(os.path.join(os.path.dirname(__file__), 'HISTORY.rst')).read()
-longdesc += open(os.path.join(os.path.dirname(__file__), 'LICENSE.rst')).read()
+longdesc = ""
 
 setup(name='bda.azipfele',
       version=version,
