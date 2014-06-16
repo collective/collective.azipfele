@@ -14,8 +14,8 @@ imports::
     >>> from plone.uuid.interfaces import IUUID
     >>> from StringIO import StringIO
     >>> from zlag.mediadb.csvimport.importer import MDBImporter
-    >>> from zlag.mediadb.zipper import Zipit
     >>> from zlag.mediadb.zipper import ZIPDIRKEY
+    >>> from zlag.mediadb.zipper import Zipit
     >>> import os
     >>> import tempfile
 
@@ -113,6 +113,6 @@ cleanup
 """""""
 
 remove temp directory::
-      
-   >>> import shutil 
+
+   >>> import shutil
    >>> shutil.rmtree(os.environ[ZIPDIRKEY])
