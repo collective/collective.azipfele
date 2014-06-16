@@ -9,10 +9,12 @@
     i18n_domain="bda.azipfele">
 
   	<includeDependencies package="." />
-  
+
   	<include package=".browser" />
 
   	<include package="Products.GenericSetup" file="meta.zcml" />
+
+  	<include file="zipper.zcml" />
 
   	<genericsetup:registerProfile
     	name="default"
@@ -23,7 +25,7 @@
   	/>
 
   	<include package="plone.resource" file="meta.zcml"/>
-  
+
   	<plone:static
     	directory="static"
     	type="theme"

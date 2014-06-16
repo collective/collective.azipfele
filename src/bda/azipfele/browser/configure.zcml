@@ -8,3 +8,58 @@
     i18n_domain="bda.azipfele" >
   	  	       
 </configure>
+
+    <!-- azip view-->
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFolder"
+        name="azipfele"
+        class=".views.AZIPMainView"
+        permission="zope2.View"
+        template="templates/azipfele.pt"
+        layer=".interfaces.AZIPLayer"
+        />
+
+    <!-- json view for results -->
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFolder"
+        name="mdbresult"
+        class=".views.ResultSearchView"
+        permission="zope2.View"
+        layer=".interfaces.MDBLayer"
+        />
+
+
+    <!-- json view for lightbox-->
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFolder"
+        name="mdblightbox"
+        class=".views.LightBoxView"
+        permission="zope2.View"
+        layer=".interfaces.MDBLayer"
+        />
+
+    <!-- json view for lb-download - create-->
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFolder"
+        name="mdbzipper"
+        class=".views.ZipperView"
+        permission="zope2.View"
+        layer=".interfaces.MDBLayer"
+        />
+
+    <!-- view for lb-download - actual download with x-sendfile -->
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="mediadb_zip"
+        class=".views.ZipperDownloadView"
+        permission="zope2.View"
+        layer=".interfaces.MDBLayer"
+        />
+
+    <!-- resources -->
+    <browser:resourceDirectory name="zlag.mediadb"
+       directory="resources"
+       layer=".interfaces.MDBLayer"
+    />
+
+</configure>

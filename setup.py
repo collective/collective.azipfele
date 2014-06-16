@@ -29,8 +29,9 @@ setup(name='bda.azipfele',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Plone',
           'collective.js.angular',
+          'collective.zamqp',
+          'Plone',
           'plone.api',
           'bda.azipfele',
           'plone.app.robotframework'
