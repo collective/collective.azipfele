@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Products.CMFPlone.utils import safe_unicode
+from bda.azipfele import _
 from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IMessageArrivedEvent
 from collective.zamqp.interfaces import IProducer
@@ -10,7 +10,7 @@ from email.Utils import formatdate
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
-from bda.azipfele import _
+from Products.CMFPlone.utils import safe_unicode
 from zope.component import adapter
 from zope.component import getUtility
 from zope.i18n import translate
@@ -21,6 +21,7 @@ import os
 import urlparse
 import uuid
 import zipfile
+
 
 logger = logging.getLogger('bda.azipfele zipper')
 
@@ -94,12 +95,11 @@ class Zipit(object):
         )
         logger.info('Creating ZIP File {0}'.format(self.zf_name))
         with zipfile.ZipFile(
-            os.path.join(self.dir, self.zf_name),
-            mode='w',
-            compression=zipfile.ZIP_DEFLATED,
-            allowZip64=True
-            ) as zf:
-
+                os.path.join(self.dir, self.zf_name),
+                mode='w',
+                compression=zipfile.ZIP_DEFLATED,
+                allowZip64=True
+        ) as zf:
             for uid in self.uids:
                 mfile = uuidToObject(uid)
                 filedata = mfile.file.data  # blobfile as string

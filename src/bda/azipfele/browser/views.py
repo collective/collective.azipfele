@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
-from Products.Five.browser import BrowserView
-from collective.zamqp.interfaces import IProducer
-from plone import api
-from zExceptions import Unauthorized
-
+from bda.azipfele.zipper import make_zip_filename
 from bda.azipfele.zipper import QUEUE_NAME
 from bda.azipfele.zipper import ZIPNGINXKEY
-from bda.azipfele.zipper import make_zip_filename
-
+from collective.zamqp.interfaces import IProducer
+from plone import api
+from Products.Five.browser import BrowserView
+from zExceptions import Unauthorized
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 import json
 import os
-
 
 
 class AzipMainView(BrowserView):
@@ -29,7 +26,6 @@ class JsonBaseView(BrowserView):
 
 
 class ZipperView(BrowserView):
-
     def __call__(self):
         if self.request["REQUEST_METHOD"] != "POST":
             raise Unauthorized("Post only allowed")
@@ -49,7 +45,6 @@ class ZipperView(BrowserView):
 
 @implementer(IPublishTraverse)
 class ZipperDownloadView(BrowserView):
-
     def __call__(self):
         userid = api.user.get_current().getId()
         target_site = get_target_site(self.request)

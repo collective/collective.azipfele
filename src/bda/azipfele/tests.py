@@ -1,12 +1,14 @@
+import doctest
+import pkg_resources
+import pprint
+import unittest
+
 from .testing import AZIP_ROBOT_TESTING, AZIPFILE_LAYER
 from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
-import doctest
-import pkg_resources
-import pprint
 import robotsuite
-import unittest
+
 
 optionflags = doctest.NORMALIZE_WHITESPACE | \
               doctest.ELLIPSIS | \
