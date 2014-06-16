@@ -23,7 +23,4 @@ Test Teardown  Close all browsers
 
 Scenario: start
     Given I'm logged in as admin
-    When I go to the media db
-    And I click on accept terms
-    And I click start db
-    Then the mdbfolder should be visible
+    Then Debug

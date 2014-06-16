@@ -3,63 +3,34 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
-    xmlns:cmf="http://namespaces.zope.org/cmf"   
-    xmlns:plone="http://namespaces.plone.org/plone" 
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="bda.azipfele" >
-  	  	       
-</configure>
+
 
     <!-- azip view-->
     <browser:page
-        for="plone.app.contenttypes.interfaces.IFolder"
+        for="plone.folder.interfaces.IFolder"
         name="azipfele"
-        class=".views.AZIPMainView"
+        class=".views.AzipMainView"
         permission="zope2.View"
         template="templates/azipfele.pt"
         layer=".interfaces.AZIPLayer"
         />
 
-    <!-- json view for results -->
-    <browser:page
-        for="plone.app.contenttypes.interfaces.IFolder"
-        name="mdbresult"
-        class=".views.ResultSearchView"
-        permission="zope2.View"
-        layer=".interfaces.MDBLayer"
-        />
-
-
-    <!-- json view for lightbox-->
-    <browser:page
-        for="plone.app.contenttypes.interfaces.IFolder"
-        name="mdblightbox"
-        class=".views.LightBoxView"
-        permission="zope2.View"
-        layer=".interfaces.MDBLayer"
-        />
-
-    <!-- json view for lb-download - create-->
-    <browser:page
-        for="plone.app.contenttypes.interfaces.IFolder"
-        name="mdbzipper"
-        class=".views.ZipperView"
-        permission="zope2.View"
-        layer=".interfaces.MDBLayer"
-        />
-
     <!-- view for lb-download - actual download with x-sendfile -->
     <browser:page
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        name="mediadb_zip"
+        name="azip"
         class=".views.ZipperDownloadView"
         permission="zope2.View"
-        layer=".interfaces.MDBLayer"
+        layer=".interfaces.AZIPLayer"
         />
 
     <!-- resources -->
-    <browser:resourceDirectory name="zlag.mediadb"
+    <browser:resourceDirectory name="bda.azipfele"
        directory="resources"
-       layer=".interfaces.MDBLayer"
+       layer=".interfaces.AZIPLayer"
     />
 
 </configure>

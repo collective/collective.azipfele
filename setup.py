@@ -33,7 +33,6 @@ setup(name='bda.azipfele',
           'collective.zamqp',
           'Plone',
           'plone.api',
-          'bda.azipfele',
           'plone.app.robotframework'
       ],
       extras_require={
@@ -41,8 +40,7 @@ setup(name='bda.azipfele',
               'interlude[ipython]>=1.3.1',
               'ipdb',
               'plone.app.testing',
-              'plone.app.robotframework',
-              'bda.azipfele[test]',
+              'plone.app.robotframework[debug]',
           ],
       },
       entry_points="""

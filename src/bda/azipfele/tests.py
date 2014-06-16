@@ -18,6 +18,7 @@ basedir = pkg_resources.ResourceManager().resource_filename(__name__, '.')
 
 TESTFILES = [
     'test/azipfele.rst',
+    'test/test.robot',
 ]
 
 def test_suite():

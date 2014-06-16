@@ -10,7 +10,7 @@ from email.Utils import formatdate
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
-from zlag.mediadb import _
+from bda.azipfele import _
 from zope.component import adapter
 from zope.component import getUtility
 from zope.i18n import translate

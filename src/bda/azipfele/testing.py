@@ -12,7 +12,6 @@ class AZipFileFixture(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         #z2.installProduct(app, 'Products.DateRecurringIndex')
-        #z2.installProduct(app, 'Products.TextIndexNG3')
 
         # Load ZCML
         #import plone.app.dexterity
