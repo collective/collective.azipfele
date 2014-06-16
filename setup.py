@@ -33,7 +33,7 @@ setup(name='bda.azipfele',
           'collective.js.angular',
           'plone.api',
           'bda.azipfele',
-          'plone.app.robotframework[debug]'
+          'plone.app.robotframework'
       ],
       extras_require={
           'test': [
@@ -41,7 +41,7 @@ setup(name='bda.azipfele',
               'ipdb',
               'plone.app.testing',
               'plone.app.robotframework',
-              'lcp.theme[test]',
+              'bda.azipfele[test]',
           ],
       },
       entry_points="""
