@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <version>1.0</version>
+    <dependencies>
+        <!-- keep pact always on buttom! -->
+        <dependency>profile-plone.app.contenttypes:default</dependency>
+    </dependencies>
+</metadata>

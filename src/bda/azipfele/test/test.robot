@@ -23,4 +23,4 @@ Test Teardown  Close all browsers
 
 Scenario: start
     Given I'm logged in as admin
-    Then Debug
+

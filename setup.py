@@ -33,7 +33,8 @@ setup(name='bda.azipfele',
           'collective.zamqp',
           'Plone',
           'plone.api',
-          'plone.app.robotframework'
+          'plone.app.robotframework',
+          'plone.app.contenttypes',
       ],
       extras_require={
           'test': [

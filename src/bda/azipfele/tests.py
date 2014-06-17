@@ -1,12 +1,14 @@
-from .testing import AZIP_ROBOT_TESTING, AZIPFILE_LAYER
-from interlude import interact
+import doctest
+import pprint
+import unittest
+
 from plone.testing import layered
 from plone.testing import z2
-import doctest
 import pkg_resources
-import pprint
 import robotsuite
-import unittest
+
+from .testing import AZIP_ROBOT_TESTING, AZIPFILE_LAYER
+from interlude import interact
 
 
 optionflags = doctest.NORMALIZE_WHITESPACE | \
@@ -18,9 +20,11 @@ optionflags = optionflags | doctest.REPORT_UDIFF
 basedir = pkg_resources.ResourceManager().resource_filename(__name__, '.')
 
 TESTFILES = [
-    'test/azipfele.rst',
     'test/test.robot',
+    'filename.rst',
+    'extractors.rst',
 ]
+
 
 def test_suite():
     suite = unittest.TestSuite()
@@ -30,9 +34,9 @@ def test_suite():
             test = doctest.DocFileSuite(
                 testfile,
                 globs={'interact': interact,
-                        'pprint': pprint.pprint,
-                        'z2': z2,
-                        'basedir':basedir,
+                       'pprint': pprint.pprint,
+                       'z2': z2,
+                       'basedir': basedir,
                 },
                 optionflags=optionflags,
             )

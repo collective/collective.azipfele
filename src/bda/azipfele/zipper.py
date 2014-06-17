@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele import _
+import logging
+import urlparse
+import uuid
+import zipfile
+
 from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IMessageArrivedEvent
 from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
-from email.Header import Header
-from email.MIMEText import MIMEText
-from email.Utils import formatdate
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
@@ -16,11 +17,12 @@ from zope.component import getUtility
 from zope.i18n import translate
 from zope.i18nmessageid import Message
 from zope.interface import Interface
-import logging
+
+from bda.azipfele import _
+from email.Header import Header
+from email.MIMEText import MIMEText
+from email.Utils import formatdate
 import os
-import urlparse
-import uuid
-import zipfile
 
 
 logger = logging.getLogger('bda.azipfele zipper')

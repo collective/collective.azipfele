@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.zipper import make_zip_filename
-from bda.azipfele.zipper import QUEUE_NAME
-from bda.azipfele.zipper import ZIPNGINXKEY
+import json
+
 from collective.zamqp.interfaces import IProducer
 from plone import api
 from Products.Five.browser import BrowserView
@@ -10,19 +9,16 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-import json
+
+from bda.azipfele.zipper import make_zip_filename
+from bda.azipfele.zipper import QUEUE_NAME
+from bda.azipfele.zipper import ZIPNGINXKEY
 import os
 
 
 class AzipMainView(BrowserView):
     def __call__(self):
         return ""
-
-
-class JsonBaseView(BrowserView):
-    """Base view for JSON, primary for sematic reasons and to
-    make p.a.caching Happy
-    """
 
 
 class ZipperView(BrowserView):

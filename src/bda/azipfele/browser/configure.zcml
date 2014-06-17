@@ -1,32 +1,32 @@
 <configure
-        xmlns="http://namespaces.zope.org/zope"
         xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns="http://namespaces.zope.org/zope"
         i18n_domain="bda.azipfele">
 
 
     <!-- azip view-->
     <browser:page
-        for="plone.folder.interfaces.IFolder"
-        name="azipfele"
-        class=".views.AzipMainView"
-        permission="zope2.View"
-        template="templates/azipfele.pt"
-        layer=".interfaces.AZIPLayer"
-        />
+            for="plone.folder.interfaces.IFolder"
+            name="azipfele"
+            class=".views.AzipMainView"
+            permission="zope2.View"
+            template="templates/azipfele.pt"
+            layer=".interfaces.AZIPLayer"
+            />
 
     <!-- view for lb-download - actual download with x-sendfile -->
     <browser:page
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        name="azip"
-        class=".views.ZipperDownloadView"
-        permission="zope2.View"
-        layer=".interfaces.AZIPLayer"
-        />
+            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+            name="azip"
+            class=".views.ZipperDownloadView"
+            permission="zope2.View"
+            layer=".interfaces.AZIPLayer"
+            />
 
     <!-- resources -->
     <browser:resourceDirectory name="bda.azipfele"
-       directory="resources"
-       layer=".interfaces.AZIPLayer"
-    />
+                               directory="resources"
+                               layer=".interfaces.AZIPLayer"
+            />
 
 </configure>

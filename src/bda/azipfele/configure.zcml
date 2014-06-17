@@ -1,29 +1,48 @@
 <configure
-        xmlns="http://namespaces.zope.org/zope"
-        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-        xmlns:plone="http://namespaces.plone.org/plone"
-        i18n_domain="bda.azipfele">
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="bda.azipfele">
 
-  	<includeDependencies package="." />
+    <includeDependencies package="."/>
 
-  	<include package=".browser" />
+    <include package="plone.resource" file="meta.zcml"/>
 
-  	<include package="Products.GenericSetup" file="meta.zcml" />
+    <include package=".browser"/>
 
-  	<include file="zipper.zcml" />
+    <include package="Products.GenericSetup" file="meta.zcml"/>
 
-  	<genericsetup:registerProfile
-    	name="default"
-    	title="BDA AZIPFELE Integration Profile"
-    	directory="profile"
-    	description="Extension profile for bda.azipfele"
-    	provides="Products.GenericSetup.interfaces.EXTENSION"
-  	/>
+    <include file="zipper.zcml"/>
 
-  	<include package="plone.resource" file="meta.zcml"/>
+    <genericsetup:registerProfile
+        name="default"
+        title="BDA AZIPFELE Integration Profile"
+        directory="profiles/default"
+        description="Extension profile for bda.azipfele"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
-  	<plone:static
-    	directory="static"
-    	type="theme"
-    	name="bda.azipfele" />
+    <plone:static
+        directory="static"
+        type="theme"
+        name="bda.azipfele"/>
+
+    <!-- Adapters -->
+    <adapter
+        factory=".filename.UidZipFileName"
+        for="* *"
+        />
+
+    <adapter
+        factory=".extractors.DxFileExtractor"
+        />
+
+    <adapter
+        factory=".extractors.DxImageExtractor"
+        />
+
+    <adapter
+        factory=".extractors.DxDocumentExtractor"
+        />
+
 </configure>
