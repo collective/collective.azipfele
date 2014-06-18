@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .browser.interfaces import IZipContentExtractor
 from plone.app.contenttypes.interfaces import IDocument
 from plone.app.contenttypes.interfaces import IFile

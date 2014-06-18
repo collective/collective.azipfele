@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .testing import AZIP_ROBOT_TESTING
 from .testing import AZIPFILE_LAYER
 from interlude import interact

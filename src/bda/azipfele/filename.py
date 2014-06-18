@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .browser.interfaces import IZipFileName
 from zope.interface import implementer
 
