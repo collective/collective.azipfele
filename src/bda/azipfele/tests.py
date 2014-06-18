@@ -1,14 +1,13 @@
-import doctest
-import pprint
-import unittest
-
+from .testing import AZIP_ROBOT_TESTING
+from .testing import AZIPFILE_LAYER
+from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
+import doctest
 import pkg_resources
+import pprint
 import robotsuite
-
-from .testing import AZIP_ROBOT_TESTING, AZIPFILE_LAYER
-from interlude import interact
+import unittest
 
 
 optionflags = doctest.NORMALIZE_WHITESPACE | \
@@ -48,4 +47,3 @@ def test_suite():
 
     suite.addTests(tests)
     return suite
-
