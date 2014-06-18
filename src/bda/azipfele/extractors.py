@@ -37,12 +37,10 @@ class DxImageExtractor(BaseDxBlobExtractor):
     fieldname = "file"
 
 
-# noch umbaun und mit docfield.text.output rausfummeln
 @adapter(IDocument)
 class DxDocumentExtractor(BaseExtractor):
-
     def __call__(self, payload):
         filedata = self.context.text.output
-        filename = os.path.basename(self.context.title)
+        filename = self.context.id + '.html'
 
         return (filename, filedata)

@@ -89,4 +89,4 @@ Test DxDocumentExtractor
     #>>> interact(locals())
     >>> doc_extractor = getAdapter(doc1, IZipContentExtractor)
     >>> doc_extractor(doc1)
-    (u'Documentheading1', 'lorem ipsum dolor sit amet')
+    ('documentheading1.html', 'lorem ipsum dolor sit amet')
