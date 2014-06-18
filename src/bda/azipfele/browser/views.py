@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-import json
-
+from bda.azipfele.zipper import make_zip_filename
+from bda.azipfele.zipper import QUEUE_NAME
+from bda.azipfele.zipper import ZIPNGINXKEY
 from collective.zamqp.interfaces import IProducer
+from mediadb.zipper import logger
 from plone import api
 from Products.Five.browser import BrowserView
 from zExceptions import Unauthorized
@@ -9,10 +11,7 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-
-from bda.azipfele.zipper import make_zip_filename
-from bda.azipfele.zipper import QUEUE_NAME
-from bda.azipfele.zipper import ZIPNGINXKEY
+import json
 import os
 
 
