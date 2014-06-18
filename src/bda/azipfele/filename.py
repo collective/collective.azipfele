@@ -10,6 +10,5 @@ class UidZipFileName():
         self.context = context
         self.request = request
 
-
     def __call__(self, uid):
         return "{0}.zip".format(uid)
