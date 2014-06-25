@@ -5,34 +5,21 @@
     i18n_domain="bda.azipfele">
 
     <includeDependencies package="."/>
-
+    <include package="Products.GenericSetup" file="meta.zcml"/>
     <include package="plone.resource" file="meta.zcml"/>
 
     <include package=".browser"/>
-
-    <include package="Products.GenericSetup" file="meta.zcml"/>
-
-    <include file="zipper.zcml"/>
+    <include file="taskszamqp.zcml"/>
 
     <genericsetup:registerProfile
         name="default"
-        title="BDA AZIPFELE Integration Profile"
+        title="Async Zip File Profile"
         directory="profiles/default"
         description="Extension profile for bda.azipfele"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <plone:static
-        directory="static"
-        type="theme"
-        name="bda.azipfele"/>
-
-    <!-- Adapters -->
-    <adapter
-        factory=".filename.UidZipFileName"
-        for="* *"
-        />
-
+    <!-- Extractors -->
     <adapter
         factory=".extractors.DxFileExtractor"
         />

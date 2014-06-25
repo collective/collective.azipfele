@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from .testing import AZIP_ROBOT_TESTING
 from .testing import AZIPFILE_LAYER
 from interlude import interact
@@ -11,19 +10,19 @@ import pprint
 import robotsuite
 import unittest
 
-
-optionflags = doctest.NORMALIZE_WHITESPACE | \
-              doctest.ELLIPSIS | \
-              doctest.REPORT_ONLY_FIRST_FAILURE
+optionflags = \
+    doctest.NORMALIZE_WHITESPACE | \
+    doctest.ELLIPSIS | \
+    doctest.REPORT_ONLY_FIRST_FAILURE
 # --udiff doesnt get grip on cmdline
 optionflags = optionflags | doctest.REPORT_UDIFF
 
 basedir = pkg_resources.ResourceManager().resource_filename(__name__, '.')
 
 TESTFILES = [
-    'test/test.robot',
-    'filename.rst',
     'extractors.rst',
+    #'zipper.rst',
+    'test/test.robot',
 ]
 
 
@@ -37,8 +36,7 @@ def test_suite():
                 globs={'interact': interact,
                        'pprint': pprint.pprint,
                        'z2': z2,
-                       'basedir': basedir,
-                },
+                       'basedir': basedir},
                 optionflags=optionflags,
             )
             tests.append(layered(test, layer=AZIPFILE_LAYER))

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.zipper import make_zip_filename
-from bda.azipfele.zipper import QUEUE_NAME
-from bda.azipfele.zipper import ZIPNGINXKEY
+from bda.azipfele.settings import QUEUE_NAME
+from bda.azipfele.settings import ZIPNGINXKEY
+from bda.azipfele.zipper import zip_filename
 from collective.zamqp.interfaces import IProducer
-from mediadb.zipper import logger
 from plone import api
 from Products.Five.browser import BrowserView
 from zExceptions import Unauthorized
@@ -12,7 +11,10 @@ from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 import json
+import logging
 import os
+
+logger = logging.getLogger('bda.azipfele.browser.views')
 
 
 class AzipMainView(BrowserView):
@@ -42,8 +44,7 @@ class ZipperView(BrowserView):
 class ZipperDownloadView(BrowserView):
     def __call__(self):
         userid = api.user.get_current().getId()
-        target_site = get_target_site(self.request)
-        filename = make_zip_filename(target_site, userid, self.uid)
+        filename = zip_filename(self.uid)
         nginx_path = os.environ[ZIPNGINXKEY] + '/' + filename
         self.request.response.setHeader('X-Accel-Redirect', nginx_path)
         # may need to set contenttype? or is this done by nginx?

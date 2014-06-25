@@ -11,7 +11,7 @@
             class=".views.AzipMainView"
             permission="zope2.View"
             template="templates/azipfele.pt"
-            layer=".interfaces.AZIPLayer"
+            layer="..interfaces.AZIPLayer"
             />
 
     <!-- view for lb-download - actual download with x-sendfile -->
@@ -20,13 +20,14 @@
             name="azip"
             class=".views.ZipperDownloadView"
             permission="zope2.View"
-            layer=".interfaces.AZIPLayer"
+            layer="..interfaces.AZIPLayer"
             />
 
     <!-- resources -->
-    <browser:resourceDirectory name="bda.azipfele"
-                               directory="resources"
-                               layer=".interfaces.AZIPLayer"
-            />
+    <browser:resourceDirectory
+        name="bda.azipfele"
+        directory="resources"
+        layer="..interfaces.AZIPLayer"
+        />
 
 </configure>

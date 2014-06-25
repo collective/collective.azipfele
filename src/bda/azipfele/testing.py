@@ -11,7 +11,6 @@ from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 class AZipFileFixture(PloneSandboxLayer):
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
 
-
     def setUpZope(self, app, configurationContext):
         # z2.installProduct(app, 'Products.DateRecurringIndex')
 

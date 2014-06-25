@@ -1,0 +1,23 @@
+<configure
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="bda.azipfele">
+
+    <include package="collective.zamqp"/>
+
+    <!-- producer - name has to be the QUEUE_NAME in settings.py -->
+    <utility
+            name="bda.azipfele.zip"
+            factory=".taskszamqp.ZipProcessingProducer"/>
+
+    <!-- consumer - name has to be the QUEUE_NAME in settings.py -->
+    <utility
+            name="bda.azipfele.zip"
+            factory=".taskszamqp.ZipProcessingConsumer"/>
+
+    <!-- subscriber to event fired on consuming -->
+    <subscriber handler=".taskszamqp.process_message"/>
+
+
+</configure>

@@ -3,7 +3,7 @@ prepare
 
 imports::
 
-    >>> from bda.azipfele.browser.interfaces import IZipContentExtractor
+    >>> from bda.azipfele.interfaces import IZipContentExtractor
     >>> from plone import api
     >>> from plone.app.testing import login
     >>> from plone.app.testing import setRoles
@@ -24,16 +24,15 @@ getportal, and login
     >>> portal = api.portal.get()
     >>> login(portal, TEST_USER_NAME)
     >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> testdir = os.path.join(basedir.rstrip('.'), 'test', 'testdata')
 
 
-create file,img and document
-""""""""""""""""""""""""""""
+Test DxFileExtractor
+====================
 
 ::
 
-    >>> testdir = os.path.join(basedir.rstrip('.'), 'test', 'testdata')
-    >>> f1 = os.path.join(testdir, 'test.txt')
-    >>> f1 = unicode(f1)
+    >>> f1 = unicode(os.path.join(testdir, 'test.txt'))
     >>> blob_f1 = NamedBlobFile(filename=f1, data=open(f1, 'r').read())
     >>> file1 = createContentInContainer(
     ...    portal, 'File',
@@ -41,31 +40,6 @@ create file,img and document
     ...    file=blob_f1)
 
     >>> file1.indexObject()
-
-
-    >>> i1 = os.path.join(testdir, 'image1.jpg')
-    >>> i1 = unicode(i1)
-    >>> blob_i1 = NamedBlobFile(filename=i1, data=open(i1, 'r').read())
-    >>> img1 = createContentInContainer(
-    ...    portal, 'Image',
-    ...    title=u'img1.jpg',
-    ...    file=blob_i1)
-
-    >>> img1.indexObject()
-
-
-    >>> doc1 = createContentInContainer(
-    ...    portal, 'Document',
-    ...    title=u'Documentheading1',
-    ...    text = RichTextValue('lorem ipsum dolor sit amet'))
-
-    >>> doc1.indexObject()
-
-
-Test DxFileExtractor
-====================
-
-::
 
     >>> file_extractor = getAdapter(file1, IZipContentExtractor)
     >>> file_extractor(file1)
@@ -77,7 +51,16 @@ Test DxImageExtractor
 
 ::
 
+    >>> i1 = unicode(os.path.join(testdir, 'image1.jpg'))
+    >>> blob_i1 = NamedBlobFile(filename=i1, data=open(i1, 'r').read())
+    >>> img1 = createContentInContainer(
+    ...    portal, 'Image',
+    ...    title=u'img1.jpg',
+    ...    image=blob_i1)
+
+    >>> img1.indexObject()
     >>> img_extractor = getAdapter(img1, IZipContentExtractor)
+    >>> interact(locals())
     >>> img_extractor(img1)
     (u'image1.jpg', '...')
 
@@ -86,7 +69,12 @@ Test DxDocumentExtractor
 ========================
 
 ::
-    #>>> interact(locals())
+    >>> doc1 = createContentInContainer(
+    ...    portal, 'Document',
+    ...    title=u'Documentheading1',
+    ...    text = RichTextValue('lorem ipsum dolor sit amet'))
+
+    >>> doc1.indexObject()
     >>> doc_extractor = getAdapter(doc1, IZipContentExtractor)
     >>> doc_extractor(doc1)
     ('documentheading1.html', 'lorem ipsum dolor sit amet')

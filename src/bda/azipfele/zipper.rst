@@ -12,15 +12,12 @@ imports::
     >>> from plone.namedfile.file import NamedBlobFile
     >>> from plone.uuid.interfaces import IUUID
     >>> from StringIO import StringIO
-    >>> from zlag.mediadb.csvimport.importer import MDBImporter
-    >>> from zlag.mediadb.zipper import ZIPDIRKEY
-    >>> from zlag.mediadb.zipper import Zipit
     >>> import os
     >>> import tempfile
 
 
-getportal, login and create mdb folder
-""""""""""""""""""""""""""""""""""""""
+getportal, login and create folder
+""""""""""""""""""""""""""""""""""
 
 ::
 
