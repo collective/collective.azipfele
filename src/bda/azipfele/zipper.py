@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from .interfaces import IZipContentExtractor
-from .interfaces import IZipFileCreatedEvent
-from .settings import ZIPDIRKEY
+from bda.azipfele.interfaces import IZipContentExtractor
+from bda.azipfele.interfaces import IZipFileCreatedEvent
+from bda.azipfele.settings import ZIPDIRKEY
 from plone.app.uuid.utils import uuidToObject
 from zope.component import queryAdapter
 from zope.event import notify
@@ -17,7 +17,8 @@ logger = logging.getLogger('bda.azipfele.zipper')
 @implementer(IZipFileCreatedEvent)
 class ZipFileCreatedEvent(object):
 
-    def __init__(self, params, filename, directory, userid):
+    def __init__(self, portal, params, filename, directory, userid):
+        self.object = portal
         self.params = params
         self.filename = filename
         self.directory = directory
@@ -25,7 +26,7 @@ class ZipFileCreatedEvent(object):
 
 
 def zip_filename(uid):
-    return "download-{2}.zip".format(uid)
+    return "download-{0}.zip".format(uid)
 
 
 class Zipit(object):
@@ -59,16 +60,16 @@ class Zipit(object):
         # generate a uuid for the zipping operation
         self.uid = str(uuid.uuid4())
 
+    @property
     def zip_filename(self):
         return zip_filename(self.uid)
 
     def __call__(self):
         """creates a zipfile with data from the initialized params
         """
-        self.zf_name = zip_filename(self.uid)
-        logger.info('Creating ZIP File {0}'.format(self.zf_name))
+        logger.info('Creating ZIP File {0}'.format(self.zip_filename))
         with zipfile.ZipFile(
-                os.path.join(self.dir, self.zf_name),
+                os.path.join(self.dir, self.zip_filename),
                 mode='w',
                 compression=zipfile.ZIP_DEFLATED,
                 allowZip64=True
@@ -80,7 +81,7 @@ class Zipit(object):
                 try:
                     context = uuidToObject(param['uid'])
                 except Exception:
-                    filename = 'failed-uid-{0}.txt'.format(param['uid'])
+                    filename = 'failed-uid-{0}-L.txt'.format(param['uid'])
                     filedata = 'Context lookup failed for UID.'
                     zf.writestr(filename, filedata)
                     continue
@@ -88,21 +89,21 @@ class Zipit(object):
                 extractor = queryAdapter(
                     context,
                     IZipContentExtractor,
-                    extractor_name
+                    name=extractor_name
                 )
                 if extractor is None:
-                    filename = 'failed-uid-{0}.txt'.format(param['uid'])
+                    filename = 'failed-uid-{0}-E.txt'.format(param['uid'])
                     filedata = 'Extractor name={0} lookup failed.'.format(
                         str(extractor_name)
                     )
-                    zf.writestr(filename, filedata)
                 else:
                     filename, filedata = extractor(param)
                 zf.writestr(filename, filedata)
         notify(
             ZipFileCreatedEvent(
+                self.portal,
                 self.params,
-                zipfile,
+                self.zip_filename,
                 self.dir,
                 self.userid
             )

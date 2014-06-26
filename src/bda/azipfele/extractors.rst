@@ -5,25 +5,12 @@ imports::
 
     >>> from bda.azipfele.interfaces import IZipContentExtractor
     >>> from plone import api
-    >>> from plone.app.testing import login
-    >>> from plone.app.testing import setRoles
-    >>> from plone.app.testing import TEST_USER_ID
-    >>> from plone.app.testing import TEST_USER_NAME
     >>> from plone.app.textfield import RichTextValue
     >>> from plone.dexterity.utils import createContentInContainer
     >>> from plone.namedfile.file import NamedBlobFile
     >>> from zope.component import getAdapter
     >>> import os
 
-
-getportal, and login
-""""""""""""""""""""
-
-::
-
-    >>> portal = api.portal.get()
-    >>> login(portal, TEST_USER_NAME)
-    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
     >>> testdir = os.path.join(basedir.rstrip('.'), 'test', 'testdata')
 
 
@@ -32,6 +19,7 @@ Test DxFileExtractor
 
 ::
 
+    >>> portal = api.portal.get()
     >>> f1 = unicode(os.path.join(testdir, 'test.txt'))
     >>> blob_f1 = NamedBlobFile(filename=f1, data=open(f1, 'r').read())
     >>> file1 = createContentInContainer(
@@ -59,8 +47,8 @@ Test DxImageExtractor
     ...    image=blob_i1)
 
     >>> img1.indexObject()
+
     >>> img_extractor = getAdapter(img1, IZipContentExtractor)
-    >>> interact(locals())
     >>> img_extractor(img1)
     (u'image1.jpg', '...')
 

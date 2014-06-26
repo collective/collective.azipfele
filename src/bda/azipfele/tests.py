@@ -10,6 +10,7 @@ import pprint
 import robotsuite
 import unittest
 
+
 optionflags = \
     doctest.NORMALIZE_WHITESPACE | \
     doctest.ELLIPSIS | \
@@ -21,8 +22,7 @@ basedir = pkg_resources.ResourceManager().resource_filename(__name__, '.')
 
 TESTFILES = [
     'extractors.rst',
-    #'zipper.rst',
-    'test/test.robot',
+    'zipper.rst',
 ]
 
 
@@ -41,9 +41,11 @@ def test_suite():
             )
             tests.append(layered(test, layer=AZIPFILE_LAYER))
 
-        if testfile.endswith('.robot'):
+        elif testfile.endswith('.robot'):
             test = robotsuite.RobotTestSuite(testfile)
             tests.append(layered(test, layer=AZIP_ROBOT_TESTING))
+        else:
+            raise ValueError('unknown extension')
 
     suite.addTests(tests)
     return suite
