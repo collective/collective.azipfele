@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from bda.azipfele.interfaces import IZipContentExtractor
 from bda.azipfele.interfaces import IZipFileCreatedEvent
+from bda.azipfele.interfaces import IZipQueueAdder
 from bda.azipfele.settings import ZIPDIRKEY
 from plone.app.uuid.utils import uuidToObject
+from zope.component import getUtility
 from zope.component import queryAdapter
 from zope.event import notify
 from zope.interface import implementer
@@ -12,6 +14,11 @@ import uuid
 import zipfile
 
 logger = logging.getLogger('bda.azipfele.zipper')
+
+
+def add_zip_job(params):
+    adder = getUtility(IZipQueueAdder)
+    adder(params)
 
 
 @implementer(IZipFileCreatedEvent)

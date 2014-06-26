@@ -14,6 +14,11 @@ class ITaskHandler(Interface):
         """
 
 
+class IZipQueueAdder(Interface):
+    """add job to queue on __call_
+    """
+
+
 class IZipFileName(Interface):
     """zipfilename generator
     """

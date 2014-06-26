@@ -6,15 +6,20 @@
 
     <include package="collective.zamqp"/>
 
+    <!-- adder  -->
+    <utility factory=".taskszamqp.ZAMQPJobAdder"/>
+
     <!-- producer - name has to be the QUEUE_NAME in settings.py -->
     <utility
-            name="bda.azipfele.zip"
-            factory=".taskszamqp.ZipProcessingProducer"/>
+        name="bda.azipfele.zip"
+        factory=".taskszamqp.ZipProcessingProducer"
+        />
 
     <!-- consumer - name has to be the QUEUE_NAME in settings.py -->
     <utility
-            name="bda.azipfele.zip"
-            factory=".taskszamqp.ZipProcessingConsumer"/>
+        name="bda.azipfele.zip"
+        factory=".taskszamqp.ZipProcessingConsumer"
+    />
 
     <!-- subscriber to event fired on consuming -->
     <subscriber handler=".taskszamqp.process_message"/>
