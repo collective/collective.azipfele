@@ -3,14 +3,12 @@
         xmlns="http://namespaces.zope.org/zope"
         i18n_domain="bda.azipfele">
 
-
-    <!-- azip view-->
+    <!-- azip simple folder add view-->
     <browser:page
             for="plone.folder.interfaces.IFolder"
-            name="azipfele"
-            class=".views.AzipMainView"
+            name="queue_zip"
+            class=".add.RecursiveFolderAdderView"
             permission="zope2.View"
-            template="templates/azipfele.pt"
             layer="..interfaces.AZIPLayer"
             />
 
@@ -18,16 +16,9 @@
     <browser:page
             for="Products.CMFPlone.interfaces.IPloneSiteRoot"
             name="azip"
-            class=".views.ZipperDownloadView"
+            class=".download.ZipperDownloadView"
             permission="zope2.View"
             layer="..interfaces.AZIPLayer"
             />
-
-    <!-- resources -->
-    <browser:resourceDirectory
-        name="bda.azipfele"
-        directory="resources"
-        layer="..interfaces.AZIPLayer"
-        />
 
 </configure>

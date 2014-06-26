@@ -36,7 +36,7 @@ class IZipContentExtractor(Interface):
     """extracts content according to given parameters
     """
 
-    def __call__(params):
+    def __call__(param, settings):
         """extracts one zip content file
 
         returns tuple with filename and content

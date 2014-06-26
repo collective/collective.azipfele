@@ -4,10 +4,9 @@ from bda.azipfele.interfaces import IZipFileCreatedEvent
 from bda.azipfele.interfaces import IZipQueueAdder
 from bda.azipfele.settings import ZIPDIRKEY
 from plone.app.uuid.utils import uuidToObject
-from zope.component import getUtility
-from zope.component import queryAdapter
 from zope.event import notify
 from zope.interface import implementer
+from zope.component import getSiteManager
 import logging
 import os
 import uuid
@@ -17,19 +16,19 @@ logger = logging.getLogger('bda.azipfele.zipper')
 
 
 def add_zip_job(params):
-    adder = getUtility(IZipQueueAdder)
+    adder = getSiteManager().getUtility(IZipQueueAdder)
     adder(params)
 
 
 @implementer(IZipFileCreatedEvent)
 class ZipFileCreatedEvent(object):
 
-    def __init__(self, portal, params, filename, directory, userid):
-        self.object = portal
+    def __init__(self, params, settings, filename, directory):
+        self.object = settings['portal']
         self.params = params
+        self.settings = settings
         self.filename = filename
         self.directory = directory
-        self.userid = userid
 
 
 def zip_filename(uid):
@@ -40,22 +39,22 @@ class Zipit(object):
     """Creates a Zip File
     """
 
-    def __init__(self, portal, userid, params):
+    def __init__(self, params, settings):
         """Initialize the creation job.
 
         portal
             the Plone portal object
 
-        userid
-            user who added the job
-
         params
             a list of dicts describing the content to be added.
             each dicts has at least a uid of some contebnt object
+
+        settings
+            dict with arbitary settings. contains at least portal and userid
         """
-        self.portal = portal
-        self.userid = userid
         self.params = params
+        self.settings = settings
+        self.portal = settings['portal']
         if ZIPDIRKEY not in os.environ:
             raise ValueError(
                 'Expect environment variable "{0}: pointing to target '
@@ -64,7 +63,7 @@ class Zipit(object):
             )
         self.dir = os.environ[ZIPDIRKEY]
 
-        # generate a uuid for the zipping operation
+        # generate an own uuid for the zipping operation
         self.uid = str(uuid.uuid4())
 
     @property
@@ -89,29 +88,38 @@ class Zipit(object):
                     context = uuidToObject(param['uid'])
                 except Exception:
                     filename = 'failed-uid-{0}-L.txt'.format(param['uid'])
-                    filedata = 'Context lookup failed for UID.'
+                    filedata = 'Context lookup failed for UID.\n'
                     zf.writestr(filename, filedata)
                     continue
                 extractor_name = param.get('extractor', None)
-                extractor = queryAdapter(
-                    context,
-                    IZipContentExtractor,
-                    name=extractor_name
-                )
+                # extractor = getGlobalSiteManager().queryAdapter(
+                #     context,
+                #     IZipContentExtractor,
+                #     name=extractor_name
+                # )
+                if extractor_name:
+                    raise NotImplemented("TODO")
+
+                else:
+                    try:
+                        extractor = IZipContentExtractor(context)
+                    except:
+                        extractor = None
                 if extractor is None:
                     filename = 'failed-uid-{0}-E.txt'.format(param['uid'])
-                    filedata = 'Extractor name={0} lookup failed.'.format(
+                    filedata = 'Context Type={0}.\n'.format(context.Type())
+                    filedata += 'Extractor name={0} lookup failed.'.format(
                         str(extractor_name)
                     )
                 else:
-                    filename, filedata = extractor(param)
+                    filename, filedata = extractor(param, self.settings)
                 zf.writestr(filename, filedata)
+
         notify(
             ZipFileCreatedEvent(
-                self.portal,
                 self.params,
+                self.settings,
                 self.zip_filename,
-                self.dir,
-                self.userid
+                self.dir
             )
         )

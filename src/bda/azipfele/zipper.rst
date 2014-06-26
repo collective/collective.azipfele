@@ -16,7 +16,7 @@ imports::
 getportal, login and create folder and test content
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
-::
+.. code-block:: python
 
     >>> portal = api.portal.get()
     >>> folder = portal.folder
@@ -46,11 +46,6 @@ getportal, login and create folder and test content
     ...    text = RichTextValue('lorem ipsum dolor sit amet'))
     >>> doc1.indexObject()
 
-    >>> from bda.azipfele.interfaces import IZipContentExtractor
-    >>> extr = IZipContentExtractor(img1)
-    >>> extr = IZipContentExtractor(file1)
-    >>> extr = IZipContentExtractor(doc1)
-
 
 create zipper
 =============
@@ -58,8 +53,9 @@ create zipper
 set testenviron
 """""""""""""""
 
-::
+.. code-block:: python
 
+    source
     >>> from bda.azipfele import settings
     >>> from bda.azipfele.zipper import Zipit
     >>> os.environ[settings.ZIPDIRKEY] = tempfile.mkdtemp()
@@ -68,23 +64,18 @@ set testenviron
     ...     {'uid': IUUID(file1)},
     ...     {'uid': IUUID(doc1)},
     ... ]
-    >>> zipit = Zipit(portal, user.getId(), params)
 
 
-create
-""""""
+ZIP
+"""
 
 ::
 
+    >>> zipit = Zipit(params, {'portal': portal, 'userid': user.getId})
     >>> zipit()
     >>> zipit.zip_filename
     'download-...-...-...-....zip'
 
-
-check zipfile
-"""""""""""""
-
-::
     >>> import zipfile
     >>> zf = zipfile.ZipFile(
     ...     os.path.join(os.environ[settings.ZIPDIRKEY], zipit.zip_filename),

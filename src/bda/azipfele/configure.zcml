@@ -1,15 +1,12 @@
 <configure
+    xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns="http://namespaces.zope.org/zope"
     i18n_domain="bda.azipfele">
 
-    <includeDependencies package="."/>
-    <include package="Products.GenericSetup" file="meta.zcml"/>
-    <include package="plone.resource" file="meta.zcml"/>
+    <includeDependencies package="." />
 
-    <include package=".browser"/>
-    <include file="taskszamqp.zcml"/>
+    <include package=".browser" />
 
     <genericsetup:registerProfile
         name="default"
@@ -21,21 +18,23 @@
 
     <!-- Extractors -->
     <adapter
-        factory=".extractors.DxFileExtractor"
         for="plone.app.contenttypes.interfaces.IFile"
         provides="bda.azipfele.interfaces.IZipContentExtractor"
+        factory="bda.azipfele.extractors.DxFileExtractor"
         />
 
     <adapter
-        factory=".extractors.DxImageExtractor"
         for="plone.app.contenttypes.interfaces.IImage"
         provides="bda.azipfele.interfaces.IZipContentExtractor"
+        factory="bda.azipfele.extractors.DxImageExtractor"
         />
 
     <adapter
-        factory=".extractors.DxDocumentExtractor"
         for="plone.app.contenttypes.interfaces.IDocument"
         provides="bda.azipfele.interfaces.IZipContentExtractor"
+        factory="bda.azipfele.extractors.DxDocumentExtractor"
         />
+
+    <include file="taskszamqp.zcml" />
 
 </configure>
