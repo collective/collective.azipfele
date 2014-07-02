@@ -1,6 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="bda.azipfele">
+    i18n_domain="collective.azipfele">
 
     <include package="collective.zamqp" />
 
@@ -9,13 +9,13 @@
 
     <!-- producer - name has to be the QUEUE_NAME in settings.py -->
     <utility
-        name="bda.azipfele.zip"
+        name="collective.azipfele.zip"
         factory=".taskszamqp.ZipProcessingProducer"
         />
 
     <!-- consumer - name has to be the QUEUE_NAME in settings.py -->
     <utility
-        name="bda.azipfele.zip"
+        name="collective.azipfele.zip"
         factory=".taskszamqp.ZipProcessingConsumer"
         />
 

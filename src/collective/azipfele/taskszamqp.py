@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.interfaces import IZipQueueAdder
-from bda.azipfele.settings import QUEUE_NAME
-from bda.azipfele.zipper import Zipit
+from collective.azipfele.interfaces import IZipQueueAdder
+from collective.azipfele.settings import QUEUE_NAME
+from collective.azipfele.zipper import Zipit
 from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IMessageArrivedEvent
 from collective.zamqp.interfaces import IProducer
@@ -13,17 +13,16 @@ from zope.interface import implementer
 from zope.interface import Interface
 import logging
 
-logger = logging.getLogger('bda.azipfele.taskszamqp')
+logger = logging.getLogger('collective.azipfele.taskszamqp')
 
 
 @implementer(IZipQueueAdder)
 class ZAMQPJobAdder(object):
 
-    def __call__(self, params, settings={}):
+    def __call__(self, jobinfo):
         producer = getUtility(IProducer, name=QUEUE_NAME)
         producer.register()
-        message = dict(params=params, settings=settings)
-        producer.publish(message, correlation_id='AZIPFELE')
+        producer.publish(jobinfo, correlation_id='AZIPFELE')
 
 
 class IZipProcessingMessage(Interface):
@@ -60,11 +59,10 @@ def process_message(message, event):
     """
     cid = message.header_frame.correlation_id
     logger.info("process message {0}".format(cid))
-    params = message.body.get('params')
-    settings = message.body.get('settings')
-    settings['portal'] = api.portal.get()
-    settings['userid'] = api.user.get_current().getId()
-    zipit = Zipit(params, settings)
+    portal = api.portal.get()
+    jobinfo = message.body
+    jobinfo['userid'] = api.user.get_current().getId()
+    zipit = Zipit(portal, jobinfo)
     zipit()  # this may take a while
     message.ack()
 

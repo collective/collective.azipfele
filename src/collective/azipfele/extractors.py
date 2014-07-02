@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.interfaces import IZipContentExtractor
+from collective.azipfele.interfaces import IZipContentExtractor
 from zope.interface import implementer
 import os
 
@@ -11,8 +11,12 @@ class BaseExtractor(object):
     def __init__(self, context):
         self.context = context
 
-    def __call__(self, param, settings):
-        raise NotImplementedError()
+    def in_zip_filepath(self, fileinfo, filename):
+        """filename with path in zipfile
+        """
+        if 'path' in fileinfo:
+            filename = '/'.join([fileinfo['path'], filename])
+        return filename
 
 
 class BaseDxBlobExtractor(BaseExtractor):
@@ -20,12 +24,15 @@ class BaseDxBlobExtractor(BaseExtractor):
     """
     fieldname = None
 
-    def __call__(self, param, settings):
+    def __call__(self, fileinfo, jobinfo):
         """extracts the content of a blob
         """
         fieldvalue = getattr(self.context, self.fieldname)
         filedata = fieldvalue.data  # blobfile as string
-        filename = os.path.basename(fieldvalue.filename)
+        filename = self.in_zip_filepath(
+            fileinfo,
+            os.path.basename(fieldvalue.filename)
+        )
         return filename, filedata
 
 
@@ -53,7 +60,7 @@ class DxDocumentExtractor(BaseExtractor):
     Suitable also for other Dexterity Types with a RichField named ``text``.
     """
 
-    def __call__(self, param, settings):
+    def __call__(self, fileinfo, jobinfo):
         filedata = self.context.text.output
-        filename = self.context.id + '.html'
+        filename = self.in_zip_filepath(fileinfo, self.context.id + '.html')
         return (filename, filedata)

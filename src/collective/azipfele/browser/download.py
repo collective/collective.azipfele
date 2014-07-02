@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.settings import ZIPNGINXKEY
-from bda.azipfele.zipper import zip_filename
+from collective.azipfele.settings import ZIPNGINXKEY
+from collective.azipfele.zipper import zip_filename
 from Products.Five.browser import BrowserView
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse

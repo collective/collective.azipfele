@@ -9,7 +9,7 @@ class AZIPLayer(Interface):
 
 class ITaskHandler(Interface):
 
-    def add_task(payload):
+    def add_task(jobinfo):
         """add taks to queue
         """
 
@@ -19,27 +19,18 @@ class IZipQueueAdder(Interface):
     """
 
 
-class IZipFileName(Interface):
-    """zipfilename generator
-    """
-
-    def __call__(params):
-        """create zipfilename
-
-        a zip filename may has a relative path by using slashes as separators
-
-        returns string with filename/ filepath
-        """
-
-
 class IZipContentExtractor(Interface):
     """extracts content according to given parameters
     """
 
-    def __call__(param, settings):
+    def __call__(fileinfo, settings):
         """extracts one zip content file
 
         returns tuple with filename and content
+        """
+
+    def in_zip_file_path(fileinfo, filename):
+        """makes a path to be used use inside of zip
         """
 
 

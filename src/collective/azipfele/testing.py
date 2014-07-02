@@ -17,12 +17,12 @@ class AZipFileFixture(PloneSandboxLayer):
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
-        import bda.azipfele
-        self.loadZCML(package=bda.azipfele,
+        import collective.azipfele
+        self.loadZCML(package=collective.azipfele,
                       context=configurationContext)
 
     def setUpPloneSite(self, portal):
-        self.applyProfile(portal, 'bda.azipfele:default')
+        self.applyProfile(portal, 'collective.azipfele:default')
         login(portal, TEST_USER_NAME)
         setRoles(portal, TEST_USER_ID, ['Manager'])
         folder = createContentInContainer(

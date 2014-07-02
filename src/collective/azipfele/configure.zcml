@@ -2,7 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="bda.azipfele">
+    i18n_domain="collective.azipfele">
 
     <includeDependencies package="." />
 
@@ -12,27 +12,27 @@
         name="default"
         title="Async Zip File Profile"
         directory="profiles/default"
-        description="Extension profile for bda.azipfele"
+        description="Extension profile for collective.azipfele"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
     <!-- Extractors -->
     <adapter
         for="plone.app.contenttypes.interfaces.IFile"
-        provides="bda.azipfele.interfaces.IZipContentExtractor"
-        factory="bda.azipfele.extractors.DxFileExtractor"
+        provides="collective.azipfele.interfaces.IZipContentExtractor"
+        factory="collective.azipfele.extractors.DxFileExtractor"
         />
 
     <adapter
         for="plone.app.contenttypes.interfaces.IImage"
-        provides="bda.azipfele.interfaces.IZipContentExtractor"
-        factory="bda.azipfele.extractors.DxImageExtractor"
+        provides="collective.azipfele.interfaces.IZipContentExtractor"
+        factory="collective.azipfele.extractors.DxImageExtractor"
         />
 
     <adapter
         for="plone.app.contenttypes.interfaces.IDocument"
-        provides="bda.azipfele.interfaces.IZipContentExtractor"
-        factory="bda.azipfele.extractors.DxDocumentExtractor"
+        provides="collective.azipfele.interfaces.IZipContentExtractor"
+        factory="collective.azipfele.extractors.DxDocumentExtractor"
         />
 
     <include file="taskszamqp.zcml" />

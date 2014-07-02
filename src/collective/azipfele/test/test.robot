@@ -3,8 +3,8 @@
 #keyword resources
 Resource   plone/app/robotframework/selenium.robot
 Resource   plone/app/robotframework/keywords.robot
-Variables  bda/azipfele/test/robottest_variables.py
-Resource   bda/azipfele/test/robottest_keywords.robot
+Variables  collective/azipfele/test/robottest_variables.py
+Resource   collective/azipfele/test/robottest_keywords.robot
 #Resource  plone/app/contenttypes/tests/robot/keywords.txt
 
 

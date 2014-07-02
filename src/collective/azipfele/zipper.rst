@@ -1,7 +1,7 @@
 prepare
 =======
 
-imports::
+.. code-block:: python
 
     >>> from plone import api
     >>> from plone.dexterity.utils import createContentInContainer
@@ -55,26 +55,41 @@ set testenviron
 
 .. code-block:: python
 
-    source
-    >>> from bda.azipfele import settings
-    >>> from bda.azipfele.zipper import Zipit
+    >>> from collective.azipfele import settings
+    >>> from collective.azipfele.zipper import Zipit
     >>> os.environ[settings.ZIPDIRKEY] = tempfile.mkdtemp()
-    >>> params = [
+    >>> fileinfos = [
     ...     {'uid': IUUID(img1)},
     ...     {'uid': IUUID(file1)},
-    ...     {'uid': IUUID(doc1)},
+    ...     {'uid': IUUID(doc1), 'path': 'my/sub/path'},
     ... ]
+    >>> jobinfo = {
+    ...     'uid': '12345-67890',
+    ...     'fileinfos': fileinfos,
+    ...     'settings': {},
+    ...     'userid': user.getId(),
+    ... }
 
 
 ZIP
 """
 
-::
+.. code-block:: python
 
-    >>> zipit = Zipit(params, {'portal': portal, 'userid': user.getId})
+    >>> zipit = Zipit(portal, jobinfo)
     >>> zipit()
-    >>> zipit.zip_filename
-    'download-...-...-...-....zip'
+    >>> pprint(zipit.jobinfo)
+    {'directory': '...',
+     'end': ...,
+     'fileinfos': [{'uid': '...'},
+                   {'uid': '...'},
+                   {'path': 'my/sub/path',
+                    'uid': '...'}],
+     'filename': 'download-12345-67890.zip',
+     'settings': {},
+     'start': ...,
+     'uid': '12345-67890',
+     'userid': 'test_user_1_'}
 
     >>> import zipfile
     >>> zf = zipfile.ZipFile(
@@ -85,13 +100,15 @@ ZIP
     File Name                                      Modified             Size
     image1.jpg                                     ... ...               519
     test.txt                                       ... ...                20
-    documentheading1.html                          ... ...                26
+    my/sub/path/documentheading1.html              ... ...                26
 
 
 cleanup
 """""""
 
-remove temp directory::
+remove temp directory
+
+.. code-block:: python
 
    >>> import shutil
    >>> shutil.rmtree(os.environ[settings.ZIPDIRKEY])

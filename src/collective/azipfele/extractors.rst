@@ -1,9 +1,11 @@
 prepare
 =======
 
-imports::
+imports
 
-    >>> from bda.azipfele.interfaces import IZipContentExtractor
+.. code-block:: python
+
+    >>> from collective.azipfele.interfaces import IZipContentExtractor
     >>> from plone import api
     >>> from plone.app.textfield import RichTextValue
     >>> from plone.dexterity.utils import createContentInContainer
@@ -17,7 +19,7 @@ imports::
 Test DxFileExtractor
 ====================
 
-::
+.. code-block:: python
 
     >>> portal = api.portal.get()
     >>> f1 = unicode(os.path.join(testdir, 'test.txt'))
@@ -30,14 +32,14 @@ Test DxFileExtractor
     >>> file1.indexObject()
 
     >>> file_extractor = getAdapter(file1, IZipContentExtractor)
-    >>> file_extractor(file1)
+    >>> file_extractor({}, {})
     (u'test.txt', 'test 123 und fertig\n')
 
 
 Test DxImageExtractor
 =====================
 
-::
+.. code-block:: python
 
     >>> i1 = unicode(os.path.join(testdir, 'image1.jpg'))
     >>> blob_i1 = NamedBlobFile(filename=i1, data=open(i1, 'r').read())
@@ -49,14 +51,15 @@ Test DxImageExtractor
     >>> img1.indexObject()
 
     >>> img_extractor = getAdapter(img1, IZipContentExtractor)
-    >>> img_extractor(img1)
-    (u'image1.jpg', '...')
+    >>> img_extractor({'path': 'in/zip/folder'}, {})
+    (u'in/zip/folder/image1.jpg', '...')
 
 
 Test DxDocumentExtractor
 ========================
 
-::
+.. code-block:: python
+
     >>> doc1 = createContentInContainer(
     ...    portal, 'Document',
     ...    title=u'Documentheading1',
@@ -64,5 +67,5 @@ Test DxDocumentExtractor
 
     >>> doc1.indexObject()
     >>> doc_extractor = getAdapter(doc1, IZipContentExtractor)
-    >>> doc_extractor(doc1)
+    >>> doc_extractor({}, {})
     ('documentheading1.html', 'lorem ipsum dolor sit amet')

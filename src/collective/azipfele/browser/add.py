@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from bda.azipfele.zipper import add_zip_job
+from collective.azipfele.zipper import add_zip_job
 from Products.Five.browser import BrowserView
 from zExceptions import Unauthorized
 from plone.folder.interfaces import IFolder
 from plone.uuid.interfaces import IUUID
 from plone import api
-from bda.azipfele import _
+from collective.azipfele import _
 import logging
 
-logger = logging.getLogger('bda.azipfele.browser.views')
+logger = logging.getLogger('collective.azipfele.browser.views')
 
 
 class ZipperBaseAdderView(BrowserView):
