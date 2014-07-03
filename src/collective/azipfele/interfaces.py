@@ -19,6 +19,21 @@ class IZipQueueAdder(Interface):
     """
 
 
+class IZipState(Interface):
+    """get or set state of an zip jon.
+
+    Intended to be initialized with an uid
+    """
+
+    def __getitem__(key):
+        """get state of zip job
+        """
+
+    def __setitem(key, value):
+        """set state of zip job
+        """
+
+
 class IZipContentExtractor(Interface):
     """extracts content according to given parameters
     """

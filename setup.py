@@ -29,13 +29,14 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
         'collective.js.angular',
         'collective.zamqp',
         'Plone',
         'plone.api',
-        'plone.app.robotframework',
         'plone.app.contenttypes',
+        'plone.app.robotframework',
+        'python-memcached',
+        'setuptools',
     ],
     extras_require={
         'test': [

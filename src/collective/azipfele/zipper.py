@@ -116,7 +116,7 @@ class Zipit(object):
                     try:
                         filename, filedata = extractor(
                             fileinfo,
-                            self.jobinfo['settings']
+                            self.jobinfo
                         )
                     except:
                         filename = 'failed-uid-{0}-R.txt'.format(
@@ -128,7 +128,9 @@ class Zipit(object):
                         filedata += u'Extractor name={0} failed.\n\n'.format(
                             str(extractor_name)
                         )
-                        filedata += json.dumps(fileinfo) + u'\n\n'
+                        filedata += u'\n\nFileinfo:\n'
+                        filedata += json.dumps(fileinfo)
+                        filedata += u'\n\nSettings:\n'
                         filedata += json.dumps(self.jobinfo['settings'])
 
                 zf.writestr(filename, filedata)

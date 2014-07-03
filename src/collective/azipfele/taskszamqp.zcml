@@ -7,6 +7,12 @@
     <!-- adder  -->
     <utility factory=".taskszamqp.ZAMQPJobAdder" />
 
+    <!-- State -->
+    <adapter
+        for="*"
+        factory=".taskszamqp.MemcachedZipState"
+        />
+
     <!-- producer - name has to be the QUEUE_NAME in settings.py -->
     <utility
         name="collective.azipfele.zip"
