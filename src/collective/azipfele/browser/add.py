@@ -59,6 +59,6 @@ class RecursiveFolderAdderView(ZipperBaseAdderView):
             ),
             request=self.request
         )
-        self.request.response.setCookie('azipjobid', self.uid)
+        self.request.response.setCookie('azipjobid', self.uid, path='/')
         self.request.response.redirect(self.context.absolute_url())
         return ""
