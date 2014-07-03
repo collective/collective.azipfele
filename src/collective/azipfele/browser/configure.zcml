@@ -12,6 +12,15 @@
             layer="..interfaces.AZIPLayer"
             />
 
+    <!-- azip state json view-->
+    <browser:page
+            for="*"
+            name="zip_state"
+            class=".state.ZipperStateView"
+            permission="zope2.View"
+            layer="..interfaces.AZIPLayer"
+            />
+
     <!-- view for lb-download - actual download with x-sendfile -->
     <browser:page
             for="Products.CMFPlone.interfaces.IPloneSiteRoot"

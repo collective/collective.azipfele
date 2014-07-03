@@ -46,7 +46,7 @@ class MemcachedZipState(object):
                 'server in order to share state '
                 'information.'.format(ZIPSTATE_MEMCACHEDSERVER)
             )
-        self._client = Client(os.environ[ZIPSTATE_MEMCACHEDSERVER])
+        self._client = Client([os.environ[ZIPSTATE_MEMCACHEDSERVER]])
 
     def _combined_key(self, key):
         return '{0}-{1}'.format(self._uid, key)

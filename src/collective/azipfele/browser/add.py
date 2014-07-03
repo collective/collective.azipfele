@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.azipfele.zipper import add_zip_job
 from Products.Five.browser import BrowserView
-from zExceptions import Unauthorized
 from plone.folder.interfaces import IFolder
 from plone.uuid.interfaces import IUUID
 from plone import api
@@ -16,11 +15,15 @@ class ZipperBaseAdderView(BrowserView):
     """
 
     def __call__(self):
-        add_zip_job(self.params)
+        self.uid = add_zip_job(self.params, self.settings)
         return self.after_add_action()
 
     @property
     def params(self):
+        raise NotImplemented('Base class has no implementation')
+
+    @property
+    def settings(self):
         raise NotImplemented('Base class has no implementation')
 
     def after_add_action(self):
@@ -43,9 +46,17 @@ class RecursiveFolderAdderView(ZipperBaseAdderView):
         self._add_folder(uids, self.context)
         return uids
 
+    @property
+    def settings(self):
+        return {}
+
     def after_add_action(self):
         api.portal.show_message(
-            message=_('', default=u"Folder queued for ZIP download"),
+            message=_(
+                '',
+                default=u'Folder queued for ZIP download. '
+                        u'Job-ID {0}'.format(self.uid)
+            ),
             request=self.request
         )
         self.request.response.redirect(self.context.absolute_url())

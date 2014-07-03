@@ -25,6 +25,7 @@ def add_zip_job(settings, fileinfos):
     jobinfo['settings'] = settings
     jobinfo['fileinfos'] = fileinfos
     adder(jobinfo)
+    return jobinfo['uid']
 
 
 @implementer(IZipFileCreatedEvent)
