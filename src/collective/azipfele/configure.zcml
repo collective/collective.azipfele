@@ -10,7 +10,7 @@
 
     <genericsetup:registerProfile
         name="default"
-        title="Async Zip File Profile"
+        title="Async Zip File Support"
         directory="profiles/default"
         description="Extension profile for collective.azipfele"
         provides="Products.GenericSetup.interfaces.EXTENSION"

@@ -9,7 +9,13 @@ import json
 @implementer(IPublishTraverse)
 class ZipperStateView(BrowserView):
 
+    def __init__(self, context, request):
+        super(self, BrowserView).__init__(context, request)
+        self.uid = None
+
     def __call__(self):
+        if self.uid is None:
+            self.uid = self.request.cookies.get('azipjobid', None)
         self.request.response.setHeader('Content-Type', 'application/json')
         state = IZipState(self.uid)
         result = {

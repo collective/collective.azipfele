@@ -63,6 +63,21 @@ class Zipit(object):
             )
         self.jobinfo['directory'] = os.environ[ZIPDIRKEY]
 
+    def _get_log_data(self, context, extractor_name, fileinfo):
+        filedata = 'Context Type: {0}\n'.format(context.Type())
+        filedata += 'Extractor name: {0}\n'.format(
+            str(extractor_name)
+        )
+        filedata += u'Fileinfo:\n'
+        filedata += json.dumps(fileinfo, sort_keys=True, indent=4)
+        filedata += u'\n\nSettings:\n'
+        filedata += json.dumps(
+            self.jobinfo['settings'],
+            sort_keys=True,
+            indent=4
+        )
+        return filedata
+
     @property
     def zip_filename(self):
         return zip_filename(self.jobinfo)
@@ -75,23 +90,28 @@ class Zipit(object):
         logger.info('Creating ZIP File {0}'.format(
             self.jobinfo['filename']
         ))
+        filepath = os.path.join(
+            self.jobinfo['directory'],
+            self.jobinfo['filename']
+        )
         with zipfile.ZipFile(
-                os.path.join(
-                    self.jobinfo['directory'],
-                    self.jobinfo['filename']
-                ),
-                mode='w',
-                compression=zipfile.ZIP_DEFLATED,
-                allowZip64=True
+            filepath,
+            mode='w',
+            compression=zipfile.ZIP_DEFLATED,
+            allowZip64=True
         ) as zf:
+            filenames = set()
+            count = 0
             for fileinfo in self.jobinfo['fileinfos']:
+                count += 1
                 if 'uid' not in fileinfo:
                     logger.error('No UID for context given, skipping.')
                     continue
                 try:
                     context = uuidToObject(fileinfo['uid'])
                 except Exception:
-                    filename = 'failed-uid-{0}-L.txt'.format(fileinfo['uid'])
+                    filename = 'failed-{0:04d}-uid-{1}-L.txt'.format(
+                        count, fileinfo['uid'])
                     filedata = 'Context lookup failed for UID.\n'
                     zf.writestr(filename, filedata)
                     continue
@@ -108,32 +128,48 @@ class Zipit(object):
                     except:
                         extractor = None
                 if extractor is None:
-                    filename = 'failed-uid-{0}-E.txt'.format(fileinfo['uid'])
-                    filedata = 'Context Type={0}.\n'.format(context.Type())
-                    filedata += 'Extractor name={0} lookup failed.'.format(
-                        str(extractor_name)
+                    filename = 'failed-{0:04d}-uid-{1}-E.txt'.format(
+                        count, fileinfo['uid'])
+                    filedata = "Extractor lookup failed.\n\n"
+                    filedata += self._get_log_data(
+                        context,
+                        extractor_name,
+                        fileinfo
                     )
+                    logger.warn(filename+'\n'+filedata)
                 else:
                     try:
                         filename, filedata = extractor(
                             fileinfo,
                             self.jobinfo
                         )
-                    except:
-                        filename = 'failed-uid-{0}-R.txt'.format(
-                            fileinfo['uid']
+                    except Exception, e:
+                        filename = 'failed-{0:04d}-uid-{1}-R.txt'.format(
+                            count, fileinfo['uid']
                         )
-                        filedata = u'Context Type={0}.\n'.format(
-                            context.Type()
+                        filedata = "Data retrieval failed.\n\n"
+                        filedata += self._get_log_data(
+                            context,
+                            extractor_name,
+                            fileinfo
                         )
-                        filedata += u'Extractor name={0} failed.\n\n'.format(
-                            str(extractor_name)
-                        )
-                        filedata += u'\n\nFileinfo:\n'
-                        filedata += json.dumps(fileinfo)
-                        filedata += u'\n\nSettings:\n'
-                        filedata += json.dumps(self.jobinfo['settings'])
-
+                        logger.warn(filename+'\n'+filedata+'\n'+str(e))
+                if filename in filenames:
+                    failedfilename = filename
+                    filename = 'failed-{0:04d}-uid-{1}-D.txt'.format(
+                        count, fileinfo['uid']
+                    )
+                    filedata = u'Duplicate filename: {0}\n'.format(
+                        failedfilename
+                    )
+                    filedata += self._get_log_data(
+                        context,
+                        extractor_name,
+                        fileinfo
+                    )
+                    logger.warn(filename+'\n'+filedata)
+                else:
+                    filenames.update([filename])
                 zf.writestr(filename, filedata)
         self.jobinfo['end'] = time.time()
         notify(
@@ -142,3 +178,4 @@ class Zipit(object):
                 self.jobinfo
             )
         )
+        logger.info('Creation of ZIP File finished\n'+filepath)

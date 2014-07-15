@@ -98,7 +98,7 @@ def process_message(message, event):
     logger.info("process message {0}".format(cid))
     portal = api.portal.get()
     jobinfo = message.body
-    jobinfo['userid'] = api.user.get_current().getId()
+    jobinfo['userid'] = api.user.get_current().getId()  # check here
     state = IZipState(jobinfo['uid'])
     state['task'] = 'processing'
     state['started'] = time.time()
