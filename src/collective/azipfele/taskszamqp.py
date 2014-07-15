@@ -12,8 +12,8 @@ from memcache import Client
 from plone import api
 from zope.component import adapter
 from zope.component import getUtility
-from zope.interface import implementer
 from zope.interface import Interface
+from zope.interface import implementer
 import logging
 import os
 import time

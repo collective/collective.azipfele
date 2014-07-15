@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from collective.azipfele.interfaces import IZipState
 from Products.Five.browser import BrowserView
+from collective.azipfele.interfaces import IZipState
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 import json

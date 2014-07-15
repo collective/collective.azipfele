@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from .testing import AZIP_ROBOT_TESTING
 from .testing import AZIPFILE_LAYER
+from .testing import AZIP_ROBOT_TESTING
 from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
