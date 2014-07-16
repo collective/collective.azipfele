@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from zope.component.interfaces import IObjectEvent
+from zope.interface import Attribute
 from zope.interface import Interface
 
 
@@ -49,6 +49,9 @@ class IZipContentExtractor(Interface):
         """
 
 
-class IZipFileCreatedEvent(IObjectEvent):
+class IZipFileCreatedEvent(Interface):
     """Event to be fired when a zip file was created
     """
+
+    portal = Attribute("Plone portal object")
+    jobinfo = Attribute("Dict with job information")

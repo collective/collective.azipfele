@@ -32,7 +32,7 @@ def add_zip_job(settings, fileinfos):
 class ZipFileCreatedEvent(object):
 
     def __init__(self, portal, jobinfo):
-        self.object = portal
+        self.portal = portal
         self.jobinfo = jobinfo
 
 
