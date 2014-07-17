@@ -34,9 +34,10 @@ loaded automagically with z3c.autoinclude.
 
 Install ``Async Zip File Support`` as an addon in Plone control-panel or
 portal_setup or depend on ``profile-collective.asynczip:default`` in your
-profiled ``metadata.xml``.
+profiles ``metadata.xml``.
 
 This package is written for Plone 4.3 or later.
+
 
 Source Code and Contributions
 =============================
@@ -54,6 +55,7 @@ Maintainer is Jens Klein and the BlueDynamics Alliance developer team. We
 appreciate any contribution and if a release is needed to be done on pypi,
 please just contact one of us
 `dev@bluedynamics dot com <mailto:dev@bluedynamics.com>`_
+
 
 Contributors
 ============
