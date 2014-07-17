@@ -1,7 +1,30 @@
-Asynchronous ZIP File Creation from Plone Content
-=================================================
+Asynchronous ZIP File Creation from Plone Content or Webservices
+================================================================
 
-Write me
+This is a basic module aiming to create ZIP files asynchronous. Even if it has
+some basic built in data-extractors, it is not meant as a out-of-the-box
+package, but for integrators and addon-product authors.
+
+Creating ZIP files in a request-response cycle may take a lot of time. With
+this package a zip job info is queued into a AMQP-Server (such as  RabbitMQ).
+
+The ZIP file is created in a worker instance. After the file was created an
+event is fired. With it i.e. an e-mail notification can be send out.
+
+The state of the creation (pending, processing, finished) and the timestamps
+(queued, started, finished) are shared between worker and instance.
+
+The worker instance gets a jobinfo (dict) with global key ``settings`` (dict)
+and a list of fileinfos (list of dicts). Each fileinfo has at least a valid
+UUID of an content item. For each fileinfo in the list one file will be
+created. It adapts the content with the given UUID with
+``collective.azipfele.interfaces import IZipContentExtractor`` using ZCA.
+If fileinfo contains an ``extractor`` (string) it uses a named adapter.
+
+The ``IZipContentExtractor`` takes on call the fileinfo and gloabl settings.
+it is expected to return a tuple of filename and the data to be stored in the
+zip with the filename. The returned filename can be a relative path as well.
+
 
 Installation
 ============
