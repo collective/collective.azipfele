@@ -139,9 +139,13 @@ class Zipit(object):
                     logger.warn(filename+'\n'+filedata)
                 else:
                     try:
+                        start = time.time()
                         filename, filedata = extractor(
                             fileinfo,
                             self.jobinfo
+                        )
+                        logger.info('Retrieved in {0:1.3f}s: {1}'.format(
+                            time.time() - start, filename)
                         )
                     except:
                         filename = 'failed-{0:04d}-uid-{1}-R.txt'.format(
@@ -158,6 +162,7 @@ class Zipit(object):
                     if self.jobinfo['settings'].get(
                         'ignore_duplicates', False
                     ):
+                        logger.info('Ignored duplicate.')
                         continue
                     failedfilename = filename
                     filename = 'failed-{0:04d}-uid-{1}-D.txt'.format(
