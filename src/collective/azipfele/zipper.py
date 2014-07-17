@@ -143,18 +143,22 @@ class Zipit(object):
                             fileinfo,
                             self.jobinfo
                         )
-                    except Exception, e:
+                    except:
                         filename = 'failed-{0:04d}-uid-{1}-R.txt'.format(
                             count, fileinfo['uid']
                         )
-                        filedata = "Data retrieval failed.\n\n"
+                        filedata = "Data retrieval exception.\n\n"
                         filedata += self._get_log_data(
                             context,
                             extractor_name,
                             fileinfo
                         )
-                        logger.warn(filename+'\n'+filedata+'\n'+str(e))
+                        logger.warn(filename+'\n'+filedata, exc_info=True)
                 if filename in filenames:
+                    if self.jobinfo['settings'].get(
+                        'ignore_duplicates', False
+                    ):
+                        continue
                     failedfilename = filename
                     filename = 'failed-{0:04d}-uid-{1}-D.txt'.format(
                         count, fileinfo['uid']
