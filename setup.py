@@ -5,7 +5,7 @@ version = '1.0.dev0'
 shortdesc = 'Creates Zip files from Plone or other content asynchronous'
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'CHANGES.rst')).read()
-longdesc += open(os.path.join(os.path.dirname(__file__), 'LICENSE.rst')).read()
+longdesc += open(os.path.join(os.path.dirname(__file__), 'LICENCE.rst')).read()
 
 setup(
     name='collective.azipfele',
