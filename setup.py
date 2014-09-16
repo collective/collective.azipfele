@@ -1,9 +1,11 @@
 from setuptools import setup, find_packages
-import sys, os
+import os
 
-version = '1.0'
+version = '1.0.dev0'
 shortdesc = 'Creates Zip files from Plone or other content asynchronous'
-longdesc = ""
+longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+longdesc += open(os.path.join(os.path.dirname(__file__), 'CHANGES.rst')).read()
+longdesc += open(os.path.join(os.path.dirname(__file__), 'LICENSE.rst')).read()
 
 setup(
     name='collective.azipfele',
@@ -29,7 +31,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'collective.js.angular',
         'collective.zamqp',
         'Plone',
         'plone.api',
