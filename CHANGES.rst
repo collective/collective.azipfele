@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (2014-09-16)
 ----------------
 
 - removed superfluos dependency on collective.js.angular
