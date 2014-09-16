@@ -35,7 +35,6 @@ setup(
         'Plone',
         'plone.api',
         'plone.app.contenttypes',
-        'plone.app.robotframework',
         'python-memcached',
         'setuptools',
     ],

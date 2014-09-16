@@ -1,6 +1,9 @@
 Asynchronous ZIP File Creation from Plone Content or Webservices
 ================================================================
 
+.. contents::
+
+
 This is a basic module aiming to create ZIP files asynchronous. Even if it has
 some basic built in data-extractors, it is not meant as a out-of-the-box
 package, but for integrators and addon-product authors.
