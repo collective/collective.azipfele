@@ -1,0 +1,4 @@
+include *.rst
+include *.conf.template
+recursive-include src *
+recursive-exclude src *.pyc *.pyo
