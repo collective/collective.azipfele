@@ -4,7 +4,8 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- fix: bug in download view
+  [jensens]
 
 
 1.1 (2014-09-16)

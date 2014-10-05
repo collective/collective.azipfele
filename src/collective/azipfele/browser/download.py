@@ -11,7 +11,7 @@ import os
 class ZipperDownloadView(BrowserView):
 
     def __call__(self):
-        filename = zip_filename(self.uid)
+        filename = zip_filename({'uid': self.uid})
         nginx_path = os.path.join(os.environ[ZIPNGINXKEY], filename)
         self.request.response.setHeader('X-Accel-Redirect', nginx_path)
         self.request.response.setHeader('Content-Type', 'application/zip')
