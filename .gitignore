@@ -20,7 +20,6 @@ devsrc
 *.swp
 .tmp*
 /var/
-src/zlag/mediadb/zips/
 *.egg
 *.mo
 /.Python

@@ -46,7 +46,7 @@ Source Code and Contributions
 =============================
 
 If you want to help with the development (improvement, update, bug-fixing, ...)
-of ``collective.azipefle`` this is a great idea!
+of ``collective.azipfele`` this is a great idea!
 
 The code is located in the
 `github collective <https://github.com/collective/collective.azipfele>`_.
