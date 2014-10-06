@@ -32,7 +32,7 @@ zip with the filename. The returned filename can be a relative path as well.
 Installation
 ============
 
-Just depend in your buildout on the egg ``collective.azipfele`. ZCML is
+Just depend in your buildout on the egg ``collective.azipfele``. ZCML is
 loaded automagically with z3c.autoinclude.
 
 Install ``Async Zip File Support`` as an addon in Plone control-panel or
