@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1.2 (unreleased)
-----------------
+1.1.2 (2014-12-19)
+------------------
 
 - "apostroph no catastroph", unicode strings for logging
   [agitator]
