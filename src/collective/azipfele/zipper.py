@@ -110,7 +110,7 @@ class Zipit(object):
                 try:
                     context = uuidToObject(fileinfo['uid'])
                 except Exception:
-                    filename = 'failed-{0:04d}-uid-{1}-L.txt'.format(
+                    filename = u'failed-{0:04d}-uid-{1}-L.txt'.format(
                         count, fileinfo['uid'])
                     filedata = 'Context lookup failed for UID.\n'
                     zf.writestr(filename, filedata)
@@ -128,7 +128,7 @@ class Zipit(object):
                     except:
                         extractor = None
                 if extractor is None:
-                    filename = 'failed-{0:04d}-uid-{1}-E.txt'.format(
+                    filename = u'failed-{0:04d}-uid-{1}-E.txt'.format(
                         count, fileinfo['uid'])
                     filedata = "Extractor lookup failed.\n\n"
                     filedata += self._get_log_data(
@@ -144,11 +144,11 @@ class Zipit(object):
                             fileinfo,
                             self.jobinfo
                         )
-                        logger.info('Retrieved in {0:1.3f}s: {1}'.format(
+                        logger.info(u'Retrieved in {0:1.3f}s: {1}'.format(
                             time.time() - start, filename)
                         )
                     except:
-                        filename = 'failed-{0:04d}-uid-{1}-R.txt'.format(
+                        filename = u'failed-{0:04d}-uid-{1}-R.txt'.format(
                             count, fileinfo['uid']
                         )
                         filedata = "Data retrieval exception.\n\n"
@@ -165,7 +165,7 @@ class Zipit(object):
                         logger.info('Ignored duplicate.')
                         continue
                     failedfilename = filename
-                    filename = 'failed-{0:04d}-uid-{1}-D.txt'.format(
+                    filename = u'failed-{0:04d}-uid-{1}-D.txt'.format(
                         count, fileinfo['uid']
                     )
                     filedata = u'Duplicate filename: {0}\n'.format(
