@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.azipfele.interfaces import IZipContentExtractor
 from zope.interface import implementer
+
 import os
 
 

@@ -12,11 +12,13 @@ from memcache import Client
 from plone import api
 from zope.component import adapter
 from zope.component import getUtility
-from zope.interface import Interface
 from zope.interface import implementer
+from zope.interface import Interface
+
 import logging
 import os
 import time
+
 
 logger = logging.getLogger('collective.azipfele.taskszamqp')
 
@@ -71,7 +73,7 @@ class ZipProcessingProducer(Producer):
     """ Produces ZIP processing tasks
     """
     connection_id = 'superuser'
-    #serializer = 'msgpack'
+    # serializer = 'msgpack'
     queue = QUEUE_NAME
     routing_key = QUEUE_NAME
 

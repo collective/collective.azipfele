@@ -1,32 +1,24 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="collective.azipfele">
-
-    <include package="collective.zamqp" />
-
-    <!-- adder  -->
-    <utility factory=".taskszamqp.ZAMQPJobAdder" />
-
-    <!-- State -->
-    <adapter
-        for="*"
-        factory=".taskszamqp.MemcachedZipState"
-        />
-
-    <!-- producer - name has to be the QUEUE_NAME in settings.py -->
-    <utility
-        name="collective.azipfele.zip"
-        factory=".taskszamqp.ZipProcessingProducer"
-        />
-
-    <!-- consumer - name has to be the QUEUE_NAME in settings.py -->
-    <utility
-        name="collective.azipfele.zip"
-        factory=".taskszamqp.ZipProcessingConsumer"
-        />
-
-    <!-- subscriber to event fired on consuming -->
-    <subscriber handler=".taskszamqp.process_message" />
-
-
+    i18n_domain="collective.azipfele"
+    xmlns="http://namespaces.zope.org/zope">
+  <include package="collective.zamqp" />
+  <!-- adder  -->
+  <utility factory=".taskszamqp.ZAMQPJobAdder" />
+  <!-- State -->
+  <adapter
+      factory=".taskszamqp.MemcachedZipState"
+      for="*"
+  />
+  <!-- producer - name has to be the QUEUE_NAME in settings.py -->
+  <utility
+      factory=".taskszamqp.ZipProcessingProducer"
+      name="collective.azipfele.zip"
+  />
+  <!-- consumer - name has to be the QUEUE_NAME in settings.py -->
+  <utility
+      factory=".taskszamqp.ZipProcessingConsumer"
+      name="collective.azipfele.zip"
+  />
+  <!-- subscriber to event fired on consuming -->
+  <subscriber handler=".taskszamqp.process_message" />
 </configure>

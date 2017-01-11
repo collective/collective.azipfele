@@ -4,7 +4,8 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- isort headers according to Plone rules.
+  [jensens]
 
 
 1.1.2 (2014-12-19)

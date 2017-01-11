@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from .testing import AZIPFILE_LAYER
-from .testing import AZIP_ROBOT_TESTING
+from collective.azipfele.testing import AZIP_ROBOT_TESTING
+from collective.azipfele.testing import AZIPFILE_LAYER
 from interlude import interact
 from plone.testing import layered
 from plone.testing import z2
+
 import doctest
 import pkg_resources
 import pprint

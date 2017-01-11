@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-from Products.Five.browser import BrowserView
 from collective.azipfele import _
 from collective.azipfele.zipper import add_zip_job
 from plone import api
 from plone.folder.interfaces import IFolder
 from plone.uuid.interfaces import IUUID
+from Products.Five.browser import BrowserView
+
 import logging
+
 
 logger = logging.getLogger('collective.azipfele.browser.views')
 

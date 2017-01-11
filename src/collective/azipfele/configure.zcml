@@ -1,40 +1,42 @@
 <configure
+    i18n_domain="collective.azipfele"
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="collective.azipfele">
-
-    <includeDependencies package="." />
-
-    <include package=".browser" />
-
-    <genericsetup:registerProfile
-        name="default"
-        title="Async Zip File Support"
-        directory="profiles/default"
-        description="Extension profile for collective.azipfele"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <!-- Extractors -->
-    <adapter
-        for="plone.app.contenttypes.interfaces.IFile"
-        provides="collective.azipfele.interfaces.IZipContentExtractor"
-        factory="collective.azipfele.extractors.DxFileExtractor"
-        />
-
-    <adapter
-        for="plone.app.contenttypes.interfaces.IImage"
-        provides="collective.azipfele.interfaces.IZipContentExtractor"
-        factory="collective.azipfele.extractors.DxImageExtractor"
-        />
-
-    <adapter
-        for="plone.app.contenttypes.interfaces.IDocument"
-        provides="collective.azipfele.interfaces.IZipContentExtractor"
-        factory="collective.azipfele.extractors.DxDocumentExtractor"
-        />
-
-    <include file="taskszamqp.zcml" />
-
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+  <includeDependencies package="." />
+  <include package=".browser" />
+  <!-- GS -->
+  <genericsetup:registerProfile
+      description="Extension profile for collective.azipfele"
+      directory="profiles/default"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Async Zip File Support"
+  />
+  <!-- Extractors -->
+  <adapter
+      factory="collective.azipfele.extractors.DxFileExtractor"
+      for="plone.app.contenttypes.interfaces.IFile"
+      provides="collective.azipfele.interfaces.IZipContentExtractor"
+  />
+  <adapter
+      factory="collective.azipfele.extractors.DxImageExtractor"
+      for="plone.app.contenttypes.interfaces.IImage"
+      provides="collective.azipfele.interfaces.IZipContentExtractor"
+  />
+  <adapter
+      factory="collective.azipfele.extractors.DxDocumentExtractor"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      provides="collective.azipfele.interfaces.IZipContentExtractor"
+  />
+  <!-- Queues -->
+  <include
+      file="taskszamqp.zcml"
+      zcml:condition="installed collective.zamqp"
+  />
+  <include
+      file="tasksqueue.zcml"
+      zcml:condition="installed collective.taskqueue"
+  />
 </configure>

@@ -8,12 +8,14 @@ from zope.component import getSiteManager
 from zope.component import queryAdapter
 from zope.event import notify
 from zope.interface import implementer
+
 import json
 import logging
 import os
 import time
 import uuid
 import zipfile
+
 
 logger = logging.getLogger('collective.azipfele.zipper')
 

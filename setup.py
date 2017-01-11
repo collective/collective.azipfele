@@ -31,14 +31,19 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'collective.zamqp',
-        'Plone',
         'plone.api',
         'plone.app.contenttypes',
+        'Products.CMFPlone',
         'python-memcached',
         'setuptools',
     ],
     extras_require={
+        'zamqp': [
+            'collective.zamqp',
+        ],
+        'taskqueue': [
+            'collective.taskqueue',
+        ],
         'test': [
             'interlude[ipython]>=1.3.1',
             'ipdb',
