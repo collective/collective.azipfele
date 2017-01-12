@@ -1,4 +1,7 @@
-include *.rst
+include *.cfg
 include *.conf.template
+include *.rst
+include *.sh
+exclude *.*.cfg
 recursive-include src *
 recursive-exclude src *.pyc *.pyo
