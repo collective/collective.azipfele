@@ -11,7 +11,7 @@ import json
 class ZipperStateView(BrowserView):
 
     def __init__(self, context, request):
-        super(self, BrowserView).__init__(context, request)
+        super(BrowserView, self).__init__(context, request)
         self.uid = None
 
     def __call__(self):

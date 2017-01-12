@@ -1,8 +1,16 @@
 Changelog
 =========
 
-1.1.3 (unreleased)
+2.0.0 (unreleased)
 ------------------
+
+  Add ``collective.taskqueue`` implementation.
+  [jensens]
+
+- Refactor queuing code in order to allow additionla queue implementations.
+  This is a breaking change! All custom code importing from old ``taskzamqp.py`` needs adjustments.
+  The existing code and additional code goes under ``queue`` subdirectory.
+  [jensens]
 
 - isort headers according to Plone rules.
   [jensens]

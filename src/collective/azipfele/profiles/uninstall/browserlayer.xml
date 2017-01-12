@@ -3,5 +3,6 @@
   <layer
       interface="collective.azipfele.interfaces.AZIPLayer"
       name="collective.azipfele"
+      remove="true"
   />
 </layers>

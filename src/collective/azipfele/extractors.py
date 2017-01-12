@@ -43,7 +43,7 @@ class DxFileExtractor(BaseDxBlobExtractor):
     Suitable also for other Dexterity Types with a BlobField named ``file``
     """
 
-    fieldname = "file"
+    fieldname = 'file'
 
 
 class DxImageExtractor(BaseDxBlobExtractor):
@@ -52,7 +52,7 @@ class DxImageExtractor(BaseDxBlobExtractor):
     Suitable also for other Dexterity Types with a BlobField named ``image``,
     such as the LeadImage behavior.
     """
-    fieldname = "image"
+    fieldname = 'image'
 
 
 class DxDocumentExtractor(BaseExtractor):

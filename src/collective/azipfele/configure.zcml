@@ -6,13 +6,25 @@
     xmlns:zcml="http://namespaces.zope.org/zcml">
   <includeDependencies package="." />
   <include package=".browser" />
+  <include package=".queue" />
   <!-- GS -->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.azipfele-hiddenprofiles"
+  />
   <genericsetup:registerProfile
       description="Extension profile for collective.azipfele"
       directory="profiles/default"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="Async Zip File Support"
+  />
+  <genericsetup:registerProfile
+      description="Removes the collective.azipfele."
+      directory="profiles/uninstall"
+      name="uninstall"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Uninstall Async Zip File Support"
   />
   <!-- Extractors -->
   <adapter
@@ -29,14 +41,5 @@
       factory="collective.azipfele.extractors.DxDocumentExtractor"
       for="plone.app.contenttypes.interfaces.IDocument"
       provides="collective.azipfele.interfaces.IZipContentExtractor"
-  />
-  <!-- Queues -->
-  <include
-      file="taskszamqp.zcml"
-      zcml:condition="installed collective.zamqp"
-  />
-  <include
-      file="tasksqueue.zcml"
-      zcml:condition="installed collective.taskqueue"
   />
 </configure>

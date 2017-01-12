@@ -1,0 +1,19 @@
+<configure
+    i18n_domain="collective.azipfele"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+  <!-- State -->
+  <adapter
+      factory=".state.MemcachedZipState"
+      for="*"
+  />
+  <!-- Queues -->
+  <include
+      package=".zamqp"
+      zcml:condition="installed collective.zamqp"
+  />
+  <include
+      package=".taskqueue"
+      zcml:condition="installed collective.taskqueue"
+  />
+</configure>

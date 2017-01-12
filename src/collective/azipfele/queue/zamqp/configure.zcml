@@ -4,11 +4,7 @@
   <include package="collective.zamqp" />
   <!-- adder  -->
   <utility factory=".taskszamqp.ZAMQPJobAdder" />
-  <!-- State -->
-  <adapter
-      factory=".taskszamqp.MemcachedZipState"
-      for="*"
-  />
+
   <!-- producer - name has to be the QUEUE_NAME in settings.py -->
   <utility
       factory=".taskszamqp.ZipProcessingProducer"

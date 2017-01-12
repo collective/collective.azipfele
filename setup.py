@@ -1,7 +1,10 @@
-from setuptools import setup, find_packages
+# -*- coding: utf-8 -*-
+from setuptools import find_packages
+from setuptools import setup
+
 import os
 
-version = '1.1.3.dev0'
+version = '2.0.0.dev0'
 shortdesc = 'Creates Zip files from Plone or other content asynchronous'
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'CHANGES.rst')).read()

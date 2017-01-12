@@ -1,0 +1,20 @@
+<configure
+    i18n_domain="collective.azipfele"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+  <include package="collective.taskqueue" />
+  <!-- adder  -->
+  <utility factory=".handler.TaskQueueJobAdder" />
+  <!-- processing view  -->
+  <browser:page
+      class=".view.ProcessQueue"
+      for="*"
+      layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+      name="azipfele_taskqueue_processor"
+      permission="cmf.ModifyPortalContent"
+  />
+
+
+  <!-- subscriber to event fired on consuming -->
+  <!-- <subscriber handler=".taskszamqp.process_message" /> -->
+</configure>
