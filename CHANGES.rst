@@ -4,7 +4,8 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow anonymous initiation of taskqueue processing
+  [agitator]
 
 
 2.0.0 (2017-01-12)
