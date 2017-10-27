@@ -11,7 +11,7 @@
       for="*"
       layer="collective.taskqueue.interfaces.ITaskQueueLayer"
       name="azipfele_taskqueue_processor"
-      permission="cmf.ModifyPortalContent"
+      permission="zope2.View"
   />
 
 
