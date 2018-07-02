@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.1 (unreleased)
+2.0.1 (2018-07-02)
 ------------------
 
 - Fix #2: ZipIt Error handling canonot handle missing context
