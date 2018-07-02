@@ -66,7 +66,9 @@ class Zipit(object):
         self.jobinfo['directory'] = os.environ[ZIPDIRKEY]
 
     def _get_log_data(self, context, extractor_name, fileinfo):
-        filedata = 'Context Type: {0}\n'.format(context.Type())
+        filedata = 'Context Type: {0}\n'.format(
+            context.Type() if context else 'Missing'
+        )
         filedata += 'Extractor name: {0}\n'.format(
             str(extractor_name)
         )
