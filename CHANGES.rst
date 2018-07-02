@@ -1,11 +1,14 @@
 Changelog
 =========
 
-2.0.1 (2018-07-02)
+2.0.2 (unreleased)
 ------------------
 
 - Fix #2: ZipIt Error handling canonot handle missing context
   [do3cc, jensens]
+
+2.0.1 (2017-10-27)
+------------------
 
 - Allow anonymous initiation of taskqueue processing
   [agitator]
